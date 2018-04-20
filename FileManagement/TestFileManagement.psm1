@@ -7,12 +7,6 @@
 # RemoveOld is used to delete files older than a certain age.
 # DO NOT use the FQDN in the UNC pointing to this module. You will get a Security Warning when running the script that cannot be supressed. 
 
-Function MoveTemp($Source, $Age){
-    $TimeSpan = (Get-Date).AddDays(-$Age)
-    Get-ChildItem -Path $Source | Where-Object {$_.CreationTime -lt $TimeSpan
-        } | Move-Item -Destination 'C:\Users\tpettit\Desktop\Script Testing Environment\Temp\'
-        } 
-
 Function CompressFile($Source, $Destination, $Age){
     $Destination += Get-Date -Uformat "%Y %m %d"
     $TimeSpan = (Get-Date).AddDays(-$Age)
