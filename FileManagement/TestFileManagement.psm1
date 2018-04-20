@@ -1,11 +1,9 @@
 # File Management PowerShell Module
-# TP 4/13/2018
+# TP 4/20/2018
 
-# Referenced by several automated File Management Scripts
 # CompressFile selects object older than specified date in specified directory, compresses them, 
 #   creates a .zip file reflecting the date, and removes the files from the soure destination
-# RemoveOld is used to delete files older than a certain age.
-# DO NOT use the FQDN in the UNC pointing to this module. You will get a Security Warning when running the script that cannot be supressed. 
+# RemoveOld is used to delete files older than a certain age. (used for cleaning up old .zip files primarily) 
 
 Function CompressFile($Source, $Destination, $Age){
     $Destination += Get-Date -Uformat "%Y %m %d"
@@ -17,8 +15,7 @@ Function CompressFile($Source, $Destination, $Age){
 
 #RemoveOld expects $MaxAge to be a number of days
 Function RemoveFiles($Source, $Age){
-    $CurrentDate = Get-Date
-    $Timespan = $CurrentDate.AddDays(-$Age)
+    $Timespan = (Get-Date -UFormat "%y %m %d").AddDays(-$Age)
     Get-ChildItem -Path $Source | Where-Object {$_.CreationTime -lt $TimeSpan
         } | Move-Item -Destination 'C:\Users\tpettit\Desktop\Script Testing Environment\DeleteTest\'
         }
